@@ -6,11 +6,7 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public float maxHealth;
-    public float damage;
     public float speed;
-    public float shield;
-    public float critRate;
-    public float critDamage;
-    public float skillTimeRate;
     public float skillTime;
+    public float attackTime;
 }

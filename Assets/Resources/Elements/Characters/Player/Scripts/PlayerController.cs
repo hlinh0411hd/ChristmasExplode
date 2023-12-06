@@ -8,9 +8,6 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance = null;
     public PlayerData playerDataBase;
     public PlayerData playerData;
-    public int exp;
-    public int level;
-
     public GameObject playerPrefab;
 
     GameObject crrPlayer;
@@ -35,19 +32,13 @@ public class PlayerController : MonoBehaviour
 
     public void StartGame(){
         UpdateData();
-        exp = 0;
-        level = 0;
         InitPlayer();
     }
 
     void UpdateData(){
         playerData.maxHealth = playerDataBase.maxHealth;
-        playerData.damage = playerDataBase.damage;
         playerData.speed = playerDataBase.speed;
-        playerData.shield = playerDataBase.shield;
-        playerData.critRate = playerDataBase.critRate;
-        playerData.critDamage = playerDataBase.critDamage;
-        playerData.skillTimeRate = playerDataBase.skillTimeRate;
+        playerData.attackTime = playerDataBase.attackTime;
         playerData.skillTime = playerDataBase.skillTime;
     }
 
@@ -71,22 +62,14 @@ public class PlayerController : MonoBehaviour
         return crrPlayer;
     }
 
+    public void SetUp(){
+        
+    }
+
 
     // Update is called once per frame
     void Update()
     {
 
-    }
-
-    public void AddExp(int e){
-        exp += e;
-        CheckLevelUp();
-    }
-
-    public void CheckLevelUp(){
-        if (exp >= 10){
-            level += 1;
-            exp -= 10;
-        }
     }
 }

@@ -7,7 +7,7 @@ public class PlayerState
 {
     public const int IDLE = 0;
     public const int MOVE = 1;
-    public const int DASH = 2;
+    public const int JUMP = 2;
     public const int SKILL = 3;
     public const int ATTACK = 4;
     public const int DIE = 5;
@@ -24,6 +24,8 @@ public class Player : StateMachineObject, IControlable
 
     protected float hor;
     protected float ver;
+
+    protected int numJump;
 
 
     protected void Awake()
@@ -42,6 +44,7 @@ public class Player : StateMachineObject, IControlable
     public void InitInfo()
     {
         dir = 1;
+        numJump = 0;
     }
 
     // Update is called once per frame
@@ -92,8 +95,9 @@ public class Player : StateMachineObject, IControlable
                 {
                     break;
                 }
-            case PlayerState.DASH:
+            case PlayerState.JUMP:
                 {
+                    OnJump();
                     break;
                 }
             case PlayerState.ATTACK:
@@ -153,6 +157,12 @@ public class Player : StateMachineObject, IControlable
         rb.velocity = new Vector2(hor, ver) * data.speed;
     }
     
+
+    protected void OnJump(){
+        rb.velocity += new Vector2(0, data.speed);
+        numJump += 1;
+    }
+
     #region Control
     public virtual void OnPressedMove()
     {
@@ -171,6 +181,11 @@ public class Player : StateMachineObject, IControlable
         if (Input.GetKeyDown("q"))
         {
             ChangeState(PlayerState.ATTACK);
+        }
+        if (Input.GetKeyDown("space")){
+            if (numJump < 1){
+                ChangeState(PlayerState.JUMP);
+            }
         }
     }
     public void OnKeyPressed()
