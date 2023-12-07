@@ -42,11 +42,6 @@ public class GameController : StateMachineObject
         ChangeState(defaultState);
     }
 
-    public void ChooseMode(int idMode)
-    {
-        mode = idMode;
-    }
-
     protected override void OnChangeState()
     {
         switch (currentState)

@@ -7,12 +7,10 @@ public class ObstacleID{
     public const int ROCK = 10;
 }
 
-public class ObstacleController
+public class ObstacleController: MonoBehaviour
 {
     public static ObstacleController instance = null;
 
-    public GameObject bombPrefabs;
-    public GameObject bomb;
 
     private void Awake()
     {
@@ -26,7 +24,6 @@ public class ObstacleController
     }
 
     void Start(){
-        bomb = Instanciate(bombPrefabs);
     }
 
     public void UpdateBombEnd(){

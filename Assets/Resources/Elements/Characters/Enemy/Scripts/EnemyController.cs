@@ -48,6 +48,11 @@ public class EnemyController : MonoBehaviour
         
     }
 
+    public void SetUp()
+    {
+
+    }
+
     //public void CreateEnemy(Vector2Int tile, int id = 0)
     //{
     //    if (id < 0 || id >= enemyPrefabs.Length) return;
