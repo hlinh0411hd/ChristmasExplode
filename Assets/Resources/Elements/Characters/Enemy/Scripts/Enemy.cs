@@ -16,9 +16,6 @@ public class EnemyState
 
 public class Enemy : StateMachineObject
 {
-    public EnemyData dataControl;
-    public EnemyData dataBase;
-    public EnemyData data;
 
 
     protected Rigidbody2D rb;
@@ -46,15 +43,6 @@ public class Enemy : StateMachineObject
     {
     }
 
-    void UpdateData(){
-        data.maxHealth = dataBase.maxHealth * dataControl.maxHealth;
-        data.damage = dataBase.damage * dataControl.damage;
-        data.speed = dataBase.speed * dataControl.speed;
-        data.shield = dataBase.shield * dataControl.shield;
-        data.timeCountDownAttack = dataBase.timeCountDownAttack * dataControl.timeCountDownAttack;
-        data.timeAttackDuration = dataBase.timeAttackDuration;
-        data.rangeAttack = dataBase.rangeAttack;
-    }
     private IEnumerator WaitStart(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -67,11 +55,10 @@ public class Enemy : StateMachineObject
     public override void OnSpawn()
     {
         base.OnSpawn();
-        UpdateData();
         isDead = false;
         currentCountDownAttack = 0;
-        health.maxHealth = data.maxHealth;
-        health.health = data.maxHealth;
+        health.maxHealth = 1f;
+        health.health = 1f;
         defaultState = EnemyState.IDLE;
         ChangeState(defaultState);
     }
@@ -179,8 +166,8 @@ public class Enemy : StateMachineObject
 
     protected virtual void OnAttack()
     {
-        animationMachine?.ChangeState(AnimationState.ATTACK, data.timeAttackDuration);
-        currentCountDownAttack = data.timeCountDownAttack;
+        animationMachine?.ChangeState(AnimationState.ATTACK, 1f);
+        currentCountDownAttack = 1f;
         GetComponent<AudioSource>().Play();
     }
 

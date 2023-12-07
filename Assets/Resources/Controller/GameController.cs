@@ -16,7 +16,7 @@ public class GameState
 public class GameController : StateMachineObject
 {
     public static GameController instance;
-    
+
     public int level;
 
     private void Awake()
@@ -56,22 +56,24 @@ public class GameController : StateMachineObject
                     break;
                 }
             case GameState.INTRODUCTION:
-            {
-                ObstacleController.instance.UpdateBombEnd();
-                break;
-            }
+                {
+                    ObstacleController.instance.UpdateBombEnd();
+                    ForceState(GameState.START_GAME);
+                    break;
+                }
             case GameState.START_GAME:
-            {
-                break;
-            }
+                {
+                    PlayerController.instance.StartPlay();
+                    break;
+                }
             case GameState.NEXT_LEVEL:
-            {
-                break;
-            }
+                {
+                    break;
+                }
             case GameState.SAVE_GIFT:
-            {
-                break;
-            }
+                {
+                    break;
+                }
             case GameState.END_GAME:
                 {
                     break;

@@ -38,7 +38,7 @@ public class AIEnemyAction : AIAction
             FindTarget();
             return;
         }
-        if (Vector2.Distance(transform.position, target.transform.position) > enemy.data.rangeFollow){
+        if (Vector2.Distance(transform.position, target.transform.position) > 1f){
             ChooseTypeTarget(TypeFindTarget.PRIORITY);
             FindTarget();
             return;
@@ -49,7 +49,7 @@ public class AIEnemyAction : AIAction
     {
         if (CheckCanAttack())
         {
-            enemy.ChangeState(EnemyState.ATTACK, enemy.data.timeAttackDuration);
+            enemy.ChangeState(EnemyState.ATTACK, 1f);
         }
     }
 
@@ -69,7 +69,7 @@ public class AIEnemyAction : AIAction
     }
     public override float GetRangeAction(string tag)
     {
-        return enemy.data.rangeAttack;
+        return 1f;
     }
 
 }

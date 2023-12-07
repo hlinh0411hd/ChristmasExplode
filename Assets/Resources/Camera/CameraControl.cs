@@ -10,8 +10,6 @@ public class CameraControl : MonoBehaviour
 
     public GameObject player;
 
-    public GameObject baseCrystal;
-
     public bool isEnd = false;
 
 

@@ -43,8 +43,9 @@ public class Player : StateMachineObject, IControlable
 
     public void InitInfo()
     {
-        dir = 1;
+        dir = -1;
         numJump = 0;
+        hor = ver = 0;
     }
 
     // Update is called once per frame
@@ -146,20 +147,21 @@ public class Player : StateMachineObject, IControlable
 
     protected void OnMove()
     {
+        hor = Input.GetAxis("Horizontal");
         if (hor < 0)
         {
-            transform.localScale = new(1, 1);
+            transform.localScale = new(1 * dir, 1);
         }
         else if (hor > 0)
         {
-            transform.localScale = new(-1, 1);
+            transform.localScale = new(-1 * dir, 1);
         }
         rb.velocity = new Vector2(hor, ver) * data.speed;
     }
     
 
     protected void OnJump(){
-        rb.velocity += new Vector2(0, data.speed);
+        rb.AddForce(new Vector2(0, 10f), ForceMode2D.Impulse);
         numJump += 1;
     }
 

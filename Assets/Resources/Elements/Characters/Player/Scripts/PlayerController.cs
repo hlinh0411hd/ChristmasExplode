@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    public void StartGame(){
+    public void SetUp(){
         UpdateData();
         InitPlayer();
     }
@@ -60,10 +60,6 @@ public class PlayerController : MonoBehaviour
     public GameObject GetPlayer()
     {
         return crrPlayer;
-    }
-
-    public void SetUp(){
-        
     }
 
 
