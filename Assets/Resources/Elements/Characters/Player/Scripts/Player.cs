@@ -17,6 +17,10 @@ public class Player : StateMachineObject, IControlable
     public PlayerData data;
     public float dir;
 
+    public float jumpHoldTime = 0.5f;
+    public float jumpHeight = 5;
+    public float cancelRate = 100;
+
     protected Rigidbody2D rb;
     protected AnimationMachine animationMachine;
 
@@ -26,6 +30,9 @@ public class Player : StateMachineObject, IControlable
     protected float ver;
 
     protected int numJump;
+    protected bool jumping;
+    protected bool jumpCancel;
+    protected float jumpTime;
 
 
     protected void Awake()
@@ -60,6 +67,16 @@ public class Player : StateMachineObject, IControlable
         OnPressedMove();
         OnPressedFire();
         OnKeyPressed();
+        OnKeyReleased():
+    }
+
+    void FixedUpdate(){
+        if (!isStart)
+        {
+            return;
+        }
+        base.FixedUpdate();
+        OnFixedUpdateState();
     }
     #region State
     public override void OnSpawn()
@@ -119,9 +136,9 @@ public class Player : StateMachineObject, IControlable
     }
 
     protected virtual void OnAttack(){
+        
     }
-    protected override void OnUpdateState()
-    {
+    protected override void OnFixedUpdateState(){
         switch (currentState)
         {
             case PlayerState.IDLE:
@@ -133,6 +150,27 @@ public class Player : StateMachineObject, IControlable
                     OnMove();
                     break;
                 }
+                case PlayerState.JUMP:
+                {
+
+                if (jumping && jumpCancell && rb.velocity.y > 0){
+                    rb.AddForce(Vector2.down * cancelRate);
+                }
+                }
+        }
+    }
+    protected override void OnUpdateState()
+    {
+        switch (currentState)
+        {
+            case PlayerState.IDLE:
+                {
+                    break;
+                }
+            case PlayerState.MOVE:
+                {
+                    break;
+                }
         }
         if (rb.velocity == Vector2.zero)
         {
@@ -142,27 +180,38 @@ public class Player : StateMachineObject, IControlable
         {
             animationMachine?.ChangeState(AnimationState.MOVE, -1f);
         }
+        
+        if (rb.velocity.x < 0)
+        {
+            transform.localScale = new(1 * dir, 1);
+        }
+        else if (rb.velocity.x > 0)
+        {
+            transform.localScale = new(-1 * dir, 1);
+        }
+        if (jumping){
+            jumpTime += Time.deltaTime;
+            if (jumpTime > jumpHoldTime){
+                jumping = false;
+            }
+        }
     }
     #endregion State
 
     protected void OnMove()
     {
         hor = Input.GetAxis("Horizontal");
-        if (hor < 0)
-        {
-            transform.localScale = new(1 * dir, 1);
-        }
-        else if (hor > 0)
-        {
-            transform.localScale = new(-1 * dir, 1);
-        }
-        rb.velocity = new Vector2(hor, ver) * data.speed;
+        rb.AddForce(new Vector2(hor * data.speed, 0));
     }
     
 
     protected void OnJump(){
-        rb.AddForce(new Vector2(0, 10f), ForceMode2D.Impulse);
+        float jumpForce = Mathf.Sqrt(jumpHeight * -2 * (Physic2D.gravity.y * rb.gravityScale));
+        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         numJump += 1;
+        jumping = true;
+        jumpCancel = false;
+        jumpTime = 0;
     }
 
     #region Control
@@ -184,20 +233,22 @@ public class Player : StateMachineObject, IControlable
         {
             ChangeState(PlayerState.ATTACK);
         }
-        if (Input.GetKeyDown("space")){
+    }
+    public void OnKeyPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)){
             if (numJump < 1){
                 ChangeState(PlayerState.JUMP);
             }
         }
     }
-    public void OnKeyPressed()
-    {
+
+    public void OnKeyreleased(){
+        if (Input.GetKeyUp(KeyCode.Space)){
+            if (jumping){
+                jumpCancel = true;
+            }
+        }
     }
     #endregion Control
-
-    public List<string> GetListTagEnemy(){
-        List<string> list = new List<string>();
-        list.Add(GameConfig.TAG_ENEMY);
-        return list;
-    }
 }

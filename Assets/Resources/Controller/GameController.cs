@@ -49,6 +49,7 @@ public class GameController : StateMachineObject
             case GameState.SETUP_GAME:
                 {
                     ResetGame();
+                    MapController.instance.SetUp();
                     PlayerController.instance.SetUp();
                     CameraControl.instance.SetUp();
                     EnemyController.instance.SetUp();

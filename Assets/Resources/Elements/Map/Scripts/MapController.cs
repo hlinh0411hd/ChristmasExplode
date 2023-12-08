@@ -5,8 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class MapController : MonoBehaviour
 {
-
+    public const static float RANGE_WALL = 3;
     public static MapController instance = null;
+    public GameObject ground;
+    public Wall[] wallPrefabs;
+
     private void Awake()
     {
         if (instance != null)
@@ -21,7 +24,6 @@ public class MapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
 
@@ -29,5 +31,19 @@ public class MapController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetUp(){
+        UpdatePositionGround();
+        SetUpWalls();
+    }
+
+    void SetUpWalls(){
+        
+    }
+
+    void UpdatePositionGround(){
+        int level = GameController.instance.level;
+        ground.transform.position = new Vector2(ground.transform.position.x, level * GameConfig.SCREEN_HEIGHT);
     }
 }

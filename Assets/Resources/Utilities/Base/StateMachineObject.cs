@@ -71,4 +71,5 @@ public abstract class StateMachineObject: MonoBehaviour
     protected abstract void OnChangeState();
 
     protected abstract void OnUpdateState();
+    protected abstract void OnFixedUpdateState();
 }
