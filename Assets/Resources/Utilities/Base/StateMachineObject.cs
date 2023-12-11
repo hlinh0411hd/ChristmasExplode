@@ -46,6 +46,11 @@ public abstract class StateMachineObject: MonoBehaviour
         UpdateTimeState();
     }
 
+    protected void FixedUpdate()
+    {
+        
+    }
+
     void UpdateTimeState()
     {
         if (timeState >= 0)

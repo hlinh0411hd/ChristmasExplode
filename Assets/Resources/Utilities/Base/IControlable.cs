@@ -8,4 +8,5 @@ public interface IControlable
     public void OnPressedMove();
     public void OnPressedFire();
     public void OnKeyPressed();
+    public void OnKeyReleased();
 }

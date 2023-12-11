@@ -18,7 +18,6 @@ public class Player : StateMachineObject, IControlable
     public float dir;
 
     public float jumpHoldTime = 0.5f;
-    public float jumpHeight = 5;
     public float cancelRate = 100;
 
     protected Rigidbody2D rb;
@@ -29,10 +28,10 @@ public class Player : StateMachineObject, IControlable
     protected float hor;
     protected float ver;
 
-    protected int numJump;
-    protected bool jumping;
-    protected bool jumpCancel;
-    protected float jumpTime;
+    [SerializeField] protected int numJump;
+    [SerializeField] protected bool jumping;
+    [SerializeField] protected bool jumpCancel;
+    [SerializeField] protected float jumpTime;
 
 
     protected void Awake()
@@ -67,10 +66,11 @@ public class Player : StateMachineObject, IControlable
         OnPressedMove();
         OnPressedFire();
         OnKeyPressed();
-        OnKeyReleased():
+        OnKeyReleased();
     }
 
-    void FixedUpdate(){
+    protected new void FixedUpdate()
+    {
         if (!isStart)
         {
             return;
@@ -135,10 +135,12 @@ public class Player : StateMachineObject, IControlable
         }
     }
 
-    protected virtual void OnAttack(){
-        
+    protected virtual void OnAttack()
+    {
+
     }
-    protected override void OnFixedUpdateState(){
+    protected override void OnFixedUpdateState()
+    {
         switch (currentState)
         {
             case PlayerState.IDLE:
@@ -150,13 +152,16 @@ public class Player : StateMachineObject, IControlable
                     OnMove();
                     break;
                 }
-                case PlayerState.JUMP:
+            case PlayerState.JUMP:
                 {
 
-                if (jumping && jumpCancell && rb.velocity.y > 0){
-                    rb.AddForce(Vector2.down * cancelRate);
+                    break;
                 }
-                }
+        }
+
+        if (jumping && jumpCancel && rb.velocity.y > 0)
+        {
+            rb.AddForce(Vector2.down * cancelRate);
         }
     }
     protected override void OnUpdateState()
@@ -180,35 +185,43 @@ public class Player : StateMachineObject, IControlable
         {
             animationMachine?.ChangeState(AnimationState.MOVE, -1f);
         }
-        
-        if (rb.velocity.x < 0)
+
+        if (hor < 0)
         {
             transform.localScale = new(1 * dir, 1);
         }
-        else if (rb.velocity.x > 0)
+        else if (hor > 0)
         {
             transform.localScale = new(-1 * dir, 1);
         }
-        if (jumping){
+        if (jumping)
+        {
             jumpTime += Time.deltaTime;
-            if (jumpTime > jumpHoldTime){
+            if (jumpTime > jumpHoldTime)
+            {
                 jumping = false;
             }
+        }
+
+        if (rb.velocity == Vector2.zero && jumping == false)
+        {
+            ChangeState(PlayerState.IDLE);
         }
     }
     #endregion State
 
     protected void OnMove()
     {
-        hor = Input.GetAxis("Horizontal");
-        rb.AddForce(new Vector2(hor * data.speed, 0));
+        hor = Input.GetAxisRaw("Horizontal");
+        transform.Translate(new Vector2(hor * data.speed * Time.deltaTime, 0));
     }
-    
 
-    protected void OnJump(){
-        float jumpForce = Mathf.Sqrt(jumpHeight * -2 * (Physic2D.gravity.y * rb.gravityScale));
+
+    protected void OnJump()
+    {
+        float jumpForce = Mathf.Sqrt(data.heightJump * -2 * (Physics2D.gravity.y * rb.gravityScale));
         rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-        numJump += 1;
+        //numJump += 1;
         jumping = true;
         jumpCancel = false;
         jumpTime = 0;
@@ -218,11 +231,7 @@ public class Player : StateMachineObject, IControlable
     public virtual void OnPressedMove()
     {
         hor = Input.GetAxisRaw("Horizontal");
-        if (hor == 0)
-        {
-            ChangeState(PlayerState.IDLE);
-        }
-        else
+        if (hor != 0)
         {
             ChangeState(PlayerState.MOVE);
         }
@@ -236,16 +245,21 @@ public class Player : StateMachineObject, IControlable
     }
     public void OnKeyPressed()
     {
-        if (Input.GetKeyDown(KeyCode.Space)){
-            if (numJump < 1){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (numJump < 1)
+            {
                 ChangeState(PlayerState.JUMP);
             }
         }
     }
 
-    public void OnKeyreleased(){
-        if (Input.GetKeyUp(KeyCode.Space)){
-            if (jumping){
+    public void OnKeyReleased()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (jumping)
+            {
                 jumpCancel = true;
             }
         }

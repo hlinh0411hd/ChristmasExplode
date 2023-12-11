@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class MapController : MonoBehaviour
 {
-    public const static float RANGE_WALL = 3;
+    public const float RANGE_WALL = 3;
     public static MapController instance = null;
     public GameObject ground;
     public Wall[] wallPrefabs;

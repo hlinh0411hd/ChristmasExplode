@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         playerData.speed = playerDataBase.speed;
         playerData.attackTime = playerDataBase.attackTime;
         playerData.skillTime = playerDataBase.skillTime;
+        playerData.heightJump = playerDataBase.heightJump;
     }
 
     public void InitPlayer()

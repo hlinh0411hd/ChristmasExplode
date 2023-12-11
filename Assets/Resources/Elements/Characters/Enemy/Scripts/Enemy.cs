@@ -129,6 +129,20 @@ public class Enemy : StateMachineObject
             animationMachine?.ChangeState(AnimationState.MOVE);
         }
     }
+    protected override void OnFixedUpdateState()
+    {
+        switch (currentState)
+        {
+            case EnemyState.IDLE:
+                {
+                    break;
+                }
+            case EnemyState.MOVE:
+                {
+                    break;
+                }
+        }
+    }
     #endregion State
 
     // Update is called once per frame

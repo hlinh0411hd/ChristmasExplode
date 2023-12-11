@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class Wall : MonoBehavior
+public class Wall : MonoBehaviour
 {
     public GameObject[] objs;
 
@@ -39,7 +39,7 @@ public class Wall : MonoBehavior
         }
         float disUpdate = listDis[Random.Range(0, listDis.Count)];
         if (Mathf.Abs(disUpdate) > MapController.RANGE_WALL){
-            disUpdate = (Mathf.abs(disUpdate) - MapController.RANGE_WALL) * (disUpdate < 0? -1: 1);
+            disUpdate = (Mathf.Abs(disUpdate) - MapController.RANGE_WALL) * (disUpdate < 0? -1: 1);
         } else {
             disUpdate = 0;
         }

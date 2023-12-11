@@ -87,6 +87,10 @@ public class GameController : StateMachineObject
     {
 
     }
+    protected override void OnFixedUpdateState()
+    {
+
+    }
     public void ResetGame()
     {
         level = 0;

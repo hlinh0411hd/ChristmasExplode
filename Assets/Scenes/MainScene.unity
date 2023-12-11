@@ -165,7 +165,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.61, y: 0.28}
+  m_Size: {x: 30, y: 0.28}
   m_EdgeRadius: 0
 --- !u!50 &465230369
 Rigidbody2D:
@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 2071324252}
   - component: {fileID: 2071324253}
   - component: {fileID: 2071324254}
+  - component: {fileID: 2071324255}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -487,3 +488,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620a74c7a61de6446b544a49a641e695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2071324255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071324248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd4297a9c0ed05428322c63e2cf4d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ground: {fileID: 465230367}
+  wallPrefabs: []
