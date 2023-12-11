@@ -43,4 +43,10 @@ public class CameraControl : MonoBehaviour
         Vector3 pos = new Vector3(transform.position.x, ((float) level + 0.5f) * height, 0);
         transform.position = pos;
     }
+
+    public void GetHeightScene(){
+        Camera camera = Camera.main;
+        Vector3 p = camera.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane));
+        return p.y;
+    }
 }

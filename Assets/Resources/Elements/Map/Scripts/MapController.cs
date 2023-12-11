@@ -9,6 +9,8 @@ public class MapController : MonoBehaviour
     public static MapController instance = null;
     public GameObject ground;
     public Wall[] wallPrefabs;
+    List<GameObject> crrLevelWalls;
+    int numWall = 0;
 
     private void Awake()
     {
@@ -19,6 +21,7 @@ public class MapController : MonoBehaviour
         }
         DontDestroyOnLoad(this);
         instance = this;
+        crrLevelWalls = new List<GameObject>();
     }
 
     // Start is called before the first frame update
@@ -34,12 +37,29 @@ public class MapController : MonoBehaviour
     }
 
     public void SetUp(){
+        ResetNumWall();
         UpdatePositionGround();
         SetUpWalls();
     }
+    
+    void ResetNumWall(){
+        numWall = 0;
+        crrLevelWalls.Clear();
+    }
 
     void SetUpWalls(){
-        
+        float y = ground.transform.position.y;
+        Wall oldWall = null;
+        while (y < CameraControl.instance.GetHeightScene() - 2){
+            y += 1;
+            GameObject wall = Instanciate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]);
+            wall.transform.position = new Vector2(Random.Range(-10, 10), y);
+            if (oldWall != null){
+                oldWall.UpdateWallPositionToConnect(wall.GetComponent<Wall>();
+            }
+            numWall += 1;
+            crrLevelWalls.Add(wall);
+        }
     }
 
     void UpdatePositionGround(){
