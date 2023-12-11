@@ -5,12 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class MapController : MonoBehaviour
 {
-    public const float RANGE_WALL = 3;
+    public const float RANGE_WALL = 1;
+    public const float RANGE_HEIGHT_WALL = 2;
     public static MapController instance = null;
+    public GameObject grid;
     public GameObject ground;
-    public Wall[] wallPrefabs;
+    public GameObject[] wallPrefabs;
     List<GameObject> crrLevelWalls;
-    int numWall = 0;
+    int numWallMap;
 
     private void Awake()
     {
@@ -36,34 +38,31 @@ public class MapController : MonoBehaviour
         
     }
 
-    public void SetUp(){
-        ResetNumWall();
+    public void SetUp()
+    {
+        numWallMap = Mathf.FloorToInt((CameraControl.instance.heightView - 2) / RANGE_HEIGHT_WALL) + 1;
         UpdatePositionGround();
         SetUpWalls();
-    }
-    
-    void ResetNumWall(){
-        numWall = 0;
-        crrLevelWalls.Clear();
     }
 
     void SetUpWalls(){
         float y = ground.transform.position.y;
         Wall oldWall = null;
-        while (y < CameraControl.instance.GetHeightScene() - 2){
-            y += 1;
-            GameObject wall = Instanciate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]);
+        for (int i = 0; i < numWallMap; i++){
+            y += RANGE_HEIGHT_WALL;
+            GameObject wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]);
             wall.transform.position = new Vector2(Random.Range(-10, 10), y);
             if (oldWall != null){
-                oldWall.UpdateWallPositionToConnect(wall.GetComponent<Wall>();
+                oldWall.UpdateWallPositionToConnect(wall.GetComponent<Wall>());
             }
-            numWall += 1;
+            oldWall = wall.GetComponent<Wall>();
+            wall.transform.parent = grid.transform;
             crrLevelWalls.Add(wall);
         }
     }
 
     void UpdatePositionGround(){
         int level = GameController.instance.level;
-        ground.transform.position = new Vector2(ground.transform.position.x, level * GameConfig.SCREEN_HEIGHT);
+        ground.transform.position = new Vector2(ground.transform.position.x, level * CameraControl.instance.heightView);
     }
 }

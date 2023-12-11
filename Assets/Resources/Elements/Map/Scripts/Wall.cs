@@ -21,7 +21,7 @@ public class Wall : MonoBehaviour
             float dis = 1000;
             for (int j = 0; j < objs.Length; j++){
                 GameObject cObj = objs[j];
-                Bounds cBound = obj.GetComponent<Renderer>().bounds;
+                Bounds cBound = cObj.GetComponent<Renderer>().bounds;
                 if (Mathf.Abs(oBound.min.x - cBound.min.x) < Mathf.Abs(dis)){
                     dis = oBound.min.x - cBound.min.x;
                 }
@@ -38,11 +38,13 @@ public class Wall : MonoBehaviour
             listDis.Add(dis);
         }
         float disUpdate = listDis[Random.Range(0, listDis.Count)];
+        Debug.Log("1" + " " + disUpdate);
         if (Mathf.Abs(disUpdate) > MapController.RANGE_WALL){
             disUpdate = (Mathf.Abs(disUpdate) - MapController.RANGE_WALL) * (disUpdate < 0? -1: 1);
         } else {
             disUpdate = 0;
         }
-        wall.transform.position = new Vector2(wall.transform.position.x + disUpdate, wall.transform.position.y);
+        Debug.Log("2" + " " + disUpdate);
+        wall.transform.position = new Vector2(wall.transform.position.x - disUpdate, wall.transform.position.y);
     }
 }
