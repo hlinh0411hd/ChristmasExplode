@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7341260806079718532}
   - component: {fileID: 7341260806079718533}
   m_Layer: 0
-  m_Name: wall0
+  m_Name: wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7341260806309368823}
   - component: {fileID: 822960917665525446}
   - component: {fileID: 116545599063588445}
-  - component: {fileID: 1612356786947105641}
+  - component: {fileID: 5534124661745321497}
   m_Layer: 0
   m_Name: w0
   m_TagString: Wall
@@ -128,7 +128,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 5, y: 1}
+  m_Size: {x: 10, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
@@ -173,15 +173,15 @@ BoxCollider2D:
     border: {x: 1, y: 0, z: 1, w: 0}
     pivot: {x: 0.5, y: 1}
     oldSize: {x: 3, y: 1.25}
-    newSize: {x: 5, y: 1}
+    newSize: {x: 10, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 0.8}
+  m_Size: {x: 9, y: 0.8}
   m_EdgeRadius: 0
---- !u!251 &1612356786947105641
+--- !u!251 &5534124661745321497
 PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

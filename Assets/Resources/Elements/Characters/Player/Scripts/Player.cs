@@ -15,6 +15,7 @@ public class PlayerState
 public class Player : StateMachineObject, IControlable
 {
     public PlayerData data;
+    public GroundCheck groundCheck;
     public float dir;
 
     public float jumpHoldTime = 0.5f;
@@ -85,6 +86,7 @@ public class Player : StateMachineObject, IControlable
         health.maxHealth = health.health = data.maxHealth;
         defaultState = PlayerState.IDLE;
         ChangeState(defaultState);
+        animationMachine?.ChangeState(AnimationState.IDLE);
         isStart = false;
     }
 
@@ -106,7 +108,6 @@ public class Player : StateMachineObject, IControlable
             case PlayerState.IDLE:
                 {
                     rb.velocity = Vector2.zero;
-                    animationMachine?.ChangeState(AnimationState.IDLE, -1f);
                     break;
                 }
             case PlayerState.MOVE:
@@ -137,7 +138,7 @@ public class Player : StateMachineObject, IControlable
 
     protected virtual void OnAttack()
     {
-
+        animationMachine?.ForceState(AnimationState.ATTACK, 0.5f);
     }
     protected override void OnFixedUpdateState()
     {
@@ -162,6 +163,7 @@ public class Player : StateMachineObject, IControlable
         if (jumping && jumpCancel && rb.velocity.y > 0)
         {
             rb.AddForce(Vector2.down * cancelRate);
+            animationMachine?.ForceState(AnimationState.JUMP_DOWN, 1f);
         }
     }
     protected override void OnUpdateState()
@@ -170,20 +172,14 @@ public class Player : StateMachineObject, IControlable
         {
             case PlayerState.IDLE:
                 {
+                    animationMachine?.ChangeState(AnimationState.IDLE);
                     break;
                 }
             case PlayerState.MOVE:
                 {
+                    animationMachine?.ChangeState(AnimationState.MOVE);
                     break;
                 }
-        }
-        if (rb.velocity == Vector2.zero)
-        {
-            animationMachine?.ChangeState(AnimationState.IDLE, -1f);
-        }
-        else
-        {
-            animationMachine?.ChangeState(AnimationState.MOVE, -1f);
         }
 
         if (hor < 0)
@@ -202,8 +198,11 @@ public class Player : StateMachineObject, IControlable
                 jumping = false;
             }
         }
-
-        if (rb.velocity == Vector2.zero && jumping == false)
+        if (rb.velocity.y < 0)
+        {
+            animationMachine?.ChangeState(AnimationState.JUMP_DOWN, 0.5f);
+        }
+        if (rb.velocity == Vector2.zero)
         {
             ChangeState(PlayerState.IDLE);
         }
@@ -212,7 +211,6 @@ public class Player : StateMachineObject, IControlable
 
     protected void OnMove()
     {
-        hor = Input.GetAxisRaw("Horizontal");
         transform.Translate(new Vector2(hor * data.speed * Time.deltaTime, 0));
     }
 
@@ -221,10 +219,11 @@ public class Player : StateMachineObject, IControlable
     {
         float jumpForce = Mathf.Sqrt(data.heightJump * -2 * (Physics2D.gravity.y * rb.gravityScale));
         rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-        //numJump += 1;
+        numJump += 1;
         jumping = true;
         jumpCancel = false;
         jumpTime = 0;
+        animationMachine?.ForceState(AnimationState.JUMP_UP, 1f);
     }
 
     #region Control
@@ -247,7 +246,7 @@ public class Player : StateMachineObject, IControlable
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (numJump < 1)
+            if (numJump < 1 && groundCheck.isGrounded)
             {
                 ChangeState(PlayerState.JUMP);
             }
@@ -265,4 +264,19 @@ public class Player : StateMachineObject, IControlable
         }
     }
     #endregion Control
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == GameConfig.TAG_WALL)
+        {
+            if (groundCheck.isGrounded && transform.position.y >= collision.transform.position.y - 0.1f)
+            {
+                numJump = 0;
+                jumping = false;
+                jumpCancel = false;
+                ForceState(PlayerState.IDLE);
+                animationMachine?.ForceState(AnimationState.IDLE);
+            }
+        }
+    }
 }

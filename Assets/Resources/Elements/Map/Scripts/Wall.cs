@@ -38,13 +38,11 @@ public class Wall : MonoBehaviour
             listDis.Add(dis);
         }
         float disUpdate = listDis[Random.Range(0, listDis.Count)];
-        Debug.Log("1" + " " + disUpdate);
         if (Mathf.Abs(disUpdate) > MapController.RANGE_WALL){
             disUpdate = (Mathf.Abs(disUpdate) - MapController.RANGE_WALL) * (disUpdate < 0? -1: 1);
         } else {
             disUpdate = 0;
         }
-        Debug.Log("2" + " " + disUpdate);
         wall.transform.position = new Vector2(wall.transform.position.x - disUpdate, wall.transform.position.y);
     }
 }

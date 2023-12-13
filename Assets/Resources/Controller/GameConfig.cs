@@ -11,6 +11,7 @@ public class GameConfig : MonoBehaviour
     public static string TAG_PLAYER = "Player";
     public static string TAG_ENEMY = "Enemy";
     public static string TAG_ITEM = "Item";
+    public static string TAG_WALL = "Wall";
 
     public static float SCREEN_WIDTH = 1920;
     public static float SCREEN_HEIGHT = 1080;

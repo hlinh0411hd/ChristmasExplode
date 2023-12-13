@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 727780475}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,3 +590,5 @@ MonoBehaviour:
   wallPrefabs:
   - {fileID: 7341260806079718535, guid: 933a8692aba1e3943a48f864a85fd283, type: 3}
   - {fileID: 7341260806079718535, guid: 32985f06453480f47b552184cd8d4d63, type: 3}
+  - {fileID: 7341260806079718535, guid: 362d1270254fc6044bdc240245e07df9, type: 3}
+  - {fileID: 7341260806079718535, guid: 5babbce94f60e7f4a8b2130b08b9eb29, type: 3}

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2110952289202029387}
   - component: {fileID: 2110952289202029385}
   - component: {fileID: 2110952289202029384}
+  - component: {fileID: 3851663365724747598}
+  - component: {fileID: -5540286768678379184}
   m_Layer: 0
   m_Name: Santa
   m_TagString: Untagged
@@ -122,9 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: -1
   data: {fileID: 11400000, guid: 22ab8c1617aa89144b37fa30fe75c352, type: 2}
+  groundCheck: {fileID: 3851663365724747598}
   dir: 0
   jumpHoldTime: 0.5
-  jumpHeight: 5
   cancelRate: 100
   numJump: 0
   jumping: 0
@@ -167,3 +169,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.41}
   m_Size: {x: 0.6, y: 0.81}
   m_Direction: 0
+--- !u!114 &3851663365724747598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110952289202029383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d37888a3a567a741ac97b3120b58647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
+  offset: 0.1
+  surfacePosition: {x: 0, y: 0}
+--- !u!114 &-5540286768678379184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110952289202029383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 834e06c8c16dd43499741900440f5548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2110952289202029380}
