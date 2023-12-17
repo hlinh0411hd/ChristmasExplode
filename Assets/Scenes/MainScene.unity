@@ -592,3 +592,60 @@ MonoBehaviour:
   - {fileID: 7341260806079718535, guid: 32985f06453480f47b552184cd8d4d63, type: 3}
   - {fileID: 7341260806079718535, guid: 362d1270254fc6044bdc240245e07df9, type: 3}
   - {fileID: 7341260806079718535, guid: 5babbce94f60e7f4a8b2130b08b9eb29, type: 3}
+--- !u!1001 &443437431532464747
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803265, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443437432322803278, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}
+      propertyPath: m_Name
+      value: Worm
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c4f992b4369c5d34daad6f60e3fd184b, type: 3}

@@ -1,0 +1,4 @@
+repository "ChristmasExplode@Rikerat@cloud"
+  path "/"
+    br "/main"
+    co "/main"
