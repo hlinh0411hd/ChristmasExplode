@@ -53,18 +53,26 @@ public class GameController : StateMachineObject
                     PlayerController.instance.SetUp();
                     CameraControl.instance.SetUp();
                     EnemyController.instance.SetUp();
-                    ForceState(GameState.INTRODUCTION);
+                    Sequence sequence = DOTween.Sequence();
+                    sequence.AppendInterval(2.5f);
+                    sequence.AppendCallback(() => { ForceState(GameState.INTRODUCTION); });
                     break;
                 }
             case GameState.INTRODUCTION:
                 {
                     ObstacleController.instance.UpdateBombEnd();
-                    ForceState(GameState.START_GAME);
+                    EnemyController.instance.ChangeDemonPosition();
+                    Sequence sequence = DOTween.Sequence();
+                    sequence.AppendInterval(2.5f);
+                    sequence.AppendCallback(()=> { ForceState(GameState.START_GAME); });
+                    
                     break;
                 }
             case GameState.START_GAME:
                 {
+                    StartLevel();
                     PlayerController.instance.StartPlay();
+                    EnemyController.instance.StartDemonPlay();
                     break;
                 }
             case GameState.NEXT_LEVEL:
@@ -91,6 +99,11 @@ public class GameController : StateMachineObject
     {
 
     }
+
+    void StartLevel()
+    {
+        level += 1;
+    }
     public void ResetGame()
     {
         level = 0;
@@ -106,7 +119,7 @@ public class GameController : StateMachineObject
     }
 
     public bool IsBossLevel(){
-        return level % 5 = 0;
+        return level % 5 == 0;
     }
     // Update is called once per frame
     void Update()

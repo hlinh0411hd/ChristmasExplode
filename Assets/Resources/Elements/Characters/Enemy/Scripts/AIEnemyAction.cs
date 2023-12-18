@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIEnemyAction : AIAction
 {
     Enemy enemy;
-    float timeUpdate = 1;
+    protected float timeUpdate = 1;
 
     new void Awake()
     {
@@ -18,7 +18,7 @@ public class AIEnemyAction : AIAction
 
     }
 
-    public void StartPlay()
+    public virtual void StartPlay()
     {
         ChooseTypeTarget(TypeFindTarget.PRIORITY);
         enemy.ChangeState(EnemyState.IDLE);

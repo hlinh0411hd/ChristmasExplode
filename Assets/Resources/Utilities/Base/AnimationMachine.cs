@@ -11,6 +11,8 @@ public class AnimationState{
     public const string DIE = "die";
     public const string JUMP_UP = "jumpUp";
     public const string JUMP_DOWN = "jumpDown";
+    public const string SPAWN = "spawn";
+    public const string SPELL = "spell";
 }
 
 public class AnimationMachine: MonoBehaviour

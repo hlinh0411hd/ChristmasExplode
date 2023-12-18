@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class AIDemonAction : AIEnemyAction
 {
-    Enemy enemy;
-    float timeUpdate = 1;
+    Demon demon;
     public Vector2 desPos;
 
     new void Awake()
     {
         base.Awake();
-        enemy = GetComponent<Enemy>();
+        demon = GetComponent<Demon>();
     }
     // Start is called before the first frame update
     void Start()
@@ -19,17 +18,18 @@ public class AIDemonAction : AIEnemyAction
 
     }
 
-    public void StartPlay()
+    public override void StartPlay()
     {
         ChooseTypeTarget(TypeFindTarget.PRIORITY);
-        enemy.ChangeState(EnemyState.IDLE);
+        demon.ChangeState(DemonState.MAKE_LEVEL);
         timeUpdate = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!enemy.IsStart() || enemy.GetState() == EnemyState.DIE) return;
+        if (!demon.IsStart() || demon.GetState() == DemonState.DIE) return;
+        timeUpdate -= Time.deltaTime;
         UpdateState();
     }
 
@@ -45,10 +45,18 @@ public class AIDemonAction : AIEnemyAction
         if (GameController.instance.IsBossLevel()){
             if (CheckCanAttack())
             {
-                enemy.ChangeState(EnemyState.ATTACK, 1f);
+                demon.ChangeState(DemonState.ATTACK, 1f);
             }
         } else {
-            
+            if (timeUpdate <= 0)
+            {
+                timeUpdate = Random.Range(1f, 3f);
+                int randState = Random.Range(0f, 1f) < 0.5f ? DemonState.ATTACK : DemonState.SPAWN;
+                demon.ForceState(randState, 0.5f);
+            } else
+            {
+                demon.ChangeState(DemonState.IDLE);
+            }
         }
     }
 
@@ -64,7 +72,7 @@ public class AIDemonAction : AIEnemyAction
         //Vector2Int tileTarget = MapController.instance.ConvertToTilePosition(target.transform.position);
         //Vector2Int tileGameObject = MapController.instance.ConvertToTilePosition(transform.position);
         //float distance = Vector2.Distance(target.transform.position, transform.position);
-        //return (GameUtil.GetRawDistance(tileTarget, tileGameObject) <= GetRangeAction(target.tag)|| distance <= GetRangeAction(target.tag)) && enemy.GetState() != EnemyState.ATTACK && enemy.data.timeCountDownAttack < 0;
+        //return (GameUtil.GetRawDistance(tileTarget, tileGameObject) <= GetRangeAction(target.tag)|| distance <= GetRangeAction(target.tag)) && demon.GetState() != DemonState.ATTACK && demon.data.timeCountDownAttack < 0;
     }
     public override float GetRangeAction(string tag)
     {

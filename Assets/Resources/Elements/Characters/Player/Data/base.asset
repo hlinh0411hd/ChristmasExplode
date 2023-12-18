@@ -16,4 +16,4 @@ MonoBehaviour:
   speed: 2.5
   skillTime: 1
   attackTime: 1
-  heightJump: 2.5
+  heightJump: 3.5

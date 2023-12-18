@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Sequence = DG.Tweening.Sequence;
 
 public class DemonState
 {
@@ -14,6 +13,7 @@ public class DemonState
     public const int SPAWN = 5;
     public const int DIE = 6;
     public const int STEAL = 7;
+    public const int MAKE_LEVEL = 8;
 }
 public class Demon : Enemy
 {
@@ -30,8 +30,10 @@ public class Demon : Enemy
     public override void OnSpawn()
     {
         base.OnSpawn();
+        defaultState = DemonState.IDLE;
+        ChangeState(defaultState);
     }
-
+    
     protected override void OnChangeState()
     {
         switch (currentState)
@@ -52,7 +54,6 @@ public class Demon : Enemy
                 }
             case DemonState.ATTACK:
                 {
-                    rb.velocity = Vector2.zero;
                     OnAttack();
                     break;
                 }
@@ -67,13 +68,19 @@ public class Demon : Enemy
                     EnemyController.instance.OnDestroyEnemy();
                     break;
                 }
-                case DemonState.STEAL:
+            case DemonState.STEAL:
                 {
                     OnSteal();
                     break;
                 }
-                case DemonState.SPAWN:
+            case DemonState.SPAWN:
                 {
+                    OnSpawnEnemies();
+                    break;
+                }
+            case DemonState.MAKE_LEVEL:
+                {
+                    MakeMagic();
                     break;
                 }
         }
@@ -142,7 +149,7 @@ public class Demon : Enemy
         }
     }
 
-    protected virtual void CheckLive()
+    protected override void CheckLive()
     {
         if (health.health <= 0)
         {
@@ -150,28 +157,39 @@ public class Demon : Enemy
         }
     }
 
-    protected virtual void OnAttack()
+    protected override void OnAttack()
     {
         animationMachine?.ChangeState(AnimationState.ATTACK, 1f);
         currentCountDownAttack = 1f;
-        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>()?.Play();
     }
-
-    protected virtual void UpdateMove()
+    protected void OnSpawnEnemies()
     {
-       
+        animationMachine?.ChangeState(AnimationState.SPAWN, 1f);
     }
 
-    void OnSteal(){
+    protected override void UpdateMove()
+    {
+
+    }
+
+    void OnSteal()
+    {
         crrWall = MapController.instance.GetWallDemon();
         UpdateNewPos();
-        MakeMagic();
     }
 
-    void UpdateNewPos(){
+    void UpdateNewPos()
+    {
+        Vector2 pos = crrWall.transform.position;
+        pos.y += 0.5f;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOMove(pos, 1f));
     }
-    
-    void MakeMagic(){
+
+    void MakeMagic()
+    {
         // create item, enemy
+        animationMachine?.ChangeState(AnimationState.SPELL, 1f);
     }
 }

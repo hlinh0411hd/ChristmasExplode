@@ -24,6 +24,9 @@ public class EnemyController : MonoBehaviour
 
     public List<GameObject> enemies;
 
+    public GameObject demonPrefab;
+    GameObject demon;
+
     private void Awake()
     {
         if (instance != null)
@@ -48,7 +51,18 @@ public class EnemyController : MonoBehaviour
 
     public void SetUp()
     {
+        demon = Instantiate(demonPrefab);
+        demon.transform.position = Vector3.zero;
+    }
 
+    public void ChangeDemonPosition()
+    {
+        demon.GetComponent<Demon>().ForceState(DemonState.STEAL);
+    }
+
+    public void StartDemonPlay()
+    {
+        demon.GetComponent<Demon>().OnStart();
     }
 
     public void OnDestroyEnemy()

@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class MapController : MonoBehaviour
 {
     public const float RANGE_WALL = 1;
-    public const float RANGE_HEIGHT_WALL = 2;
+    public const float RANGE_HEIGHT_WALL = 2.5f;
     public static MapController instance = null;
     public GameObject grid;
     public GameObject ground;
@@ -40,7 +40,7 @@ public class MapController : MonoBehaviour
 
     public void SetUp()
     {
-        numWallMap = Mathf.FloorToInt((CameraControl.instance.heightView - 2) / RANGE_HEIGHT_WALL) + 1;
+        numWallMap = Mathf.FloorToInt((CameraControl.instance.heightView - RANGE_HEIGHT_WALL) / RANGE_HEIGHT_WALL);
         SetUpWalls();
         UpdatePositionGround();
     }
@@ -63,9 +63,16 @@ public class MapController : MonoBehaviour
     }
 
     public GameObject GetWallDemon(){
-        GameObject wOb = crrLevelWalls[crrLevelWalls.Count - 1];
-        Wall wall = wOb.GetComponent<Wall>();
-        return wall.GetRandomWall();
+        for (int i = crrLevelWalls.Count - 1; i >= 0; i--)
+        {
+            GameObject wOb = crrLevelWalls[i];
+            if (wOb.transform.position.y <= Camera.main.transform.position.y + CameraControl.instance.heightView / 2)
+            {
+                Wall wall = wOb.GetComponent<Wall>();
+                return wall.GetRandomWall();
+            }
+        }
+        return null;
     }
 
     void UpdatePositionGround(){

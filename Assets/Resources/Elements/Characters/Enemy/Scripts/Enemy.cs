@@ -25,10 +25,10 @@ public class Enemy : StateMachineObject
 
     protected AIEnemyAction aIEnemyAction;
 
-    float currentCountDownAttack;
+    protected float currentCountDownAttack;
 
-    float hor;
-    float ver;
+    protected float hor;
+    protected float ver;
 
     private void Awake()
     {

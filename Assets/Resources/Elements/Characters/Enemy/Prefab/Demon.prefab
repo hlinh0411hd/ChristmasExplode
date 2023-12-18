@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 9179530700280162235}
   - component: {fileID: 9179530700280162232}
   - component: {fileID: 9179530700280162233}
+  - component: {fileID: 7131695512459043923}
+  - component: {fileID: 9159311002502880921}
+  - component: {fileID: -848568472796778383}
   m_Layer: 0
   m_Name: Demon
   m_TagString: Untagged
@@ -134,7 +137,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -158,3 +161,47 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.76}
   m_Size: {x: 1.11, y: 1.65}
   m_Direction: 0
+--- !u!114 &7131695512459043923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9179530700280162229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623eac31e12a5af47a642373d6781eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: -1
+--- !u!114 &9159311002502880921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9179530700280162229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2370b66d36a61a6419a71518368062a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  desPos: {x: 0, y: 0}
+--- !u!114 &-848568472796778383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9179530700280162229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15bbe0003f29e647b4d6705c3418035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  maxHealth: 5
+  hurt: {fileID: 0}
+  die: {fileID: 0}
+  animationMachine: {fileID: 0}
+  audioSource: {fileID: 0}

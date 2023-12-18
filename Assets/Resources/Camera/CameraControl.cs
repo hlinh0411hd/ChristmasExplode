@@ -59,7 +59,7 @@ public class CameraControl : MonoBehaviour
         float cY = camera.transform.position.y;
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(0.5f);
-        sequence.Append(camera.transform.DOMoveY(camera.transform.position.y + (pY - cY) + heightView / 2 - 1, 1f));
+        sequence.Append(camera.transform.DOMoveY(camera.transform.position.y + (pY - cY) + heightView / 2 - 0.7f, 1f));
     }
 
     public float GetHeightScene(){
