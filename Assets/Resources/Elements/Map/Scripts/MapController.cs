@@ -41,12 +41,13 @@ public class MapController : MonoBehaviour
     public void SetUp()
     {
         numWallMap = Mathf.FloorToInt((CameraControl.instance.heightView - 2) / RANGE_HEIGHT_WALL) + 1;
-        UpdatePositionGround();
         SetUpWalls();
+        UpdatePositionGround();
     }
 
     void SetUpWalls(){
         float y = ground.transform.position.y;
+        crrLevelWalls.Clear();
         Wall oldWall = null;
         for (int i = 0; i < numWallMap; i++){
             y += RANGE_HEIGHT_WALL;
@@ -59,6 +60,12 @@ public class MapController : MonoBehaviour
             wall.transform.parent = grid.transform;
             crrLevelWalls.Add(wall);
         }
+    }
+
+    public GameObject GetWallDemon(){
+        GameObject wOb = crrLevelWalls[crrLevelWalls.Count - 1];
+        Wall wall = wOb.GetComponent<Wall>();
+        return wall.GetRandomWall();
     }
 
     void UpdatePositionGround(){

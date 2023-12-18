@@ -105,6 +105,9 @@ public class GameController : StateMachineObject
     {
     }
 
+    public bool IsBossLevel(){
+        return level % 5 = 0;
+    }
     // Update is called once per frame
     void Update()
     {

@@ -45,4 +45,8 @@ public class Wall : MonoBehaviour
         }
         wall.transform.position = new Vector2(wall.transform.position.x - disUpdate, wall.transform.position.y);
     }
+
+    public GameObject GetRandomWall(){
+        return objs[Random.Range(0, objs.Length)];
+    }
 }
