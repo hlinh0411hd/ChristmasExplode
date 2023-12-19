@@ -20,6 +20,10 @@ public abstract class StateMachineObject: MonoBehaviour
     {
     }
 
+    public virtual void OnPause(){
+        isStart = false;
+    }
+
     public void ChangeState(int state, float time = -1f)
     {
         if (timeState > 0)

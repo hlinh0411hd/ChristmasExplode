@@ -60,7 +60,6 @@ public class GameController : StateMachineObject
                 }
             case GameState.INTRODUCTION:
                 {
-                    ObstacleController.instance.UpdateBombEnd();
                     EnemyController.instance.ChangeDemonPosition();
                     Sequence sequence = DOTween.Sequence();
                     sequence.AppendInterval(2.5f);
@@ -72,11 +71,16 @@ public class GameController : StateMachineObject
                 {
                     StartLevel();
                     PlayerController.instance.StartPlay();
-                    EnemyController.instance.StartDemonPlay();
+                    EnemyController.instance.StartDemonPlay(); 
+                    ObstacleController.instance.UpdateBombEnd();
                     break;
                 }
             case GameState.NEXT_LEVEL:
                 {
+                    PlayerController.instance.OnPause();
+                    EnemyController.instance.OnDemonPause();
+                    ObstacleController.instance.OnBombPause();
+                    ChangeState(GameState.INTRODUCTION);
                     break;
                 }
             case GameState.SAVE_GIFT:

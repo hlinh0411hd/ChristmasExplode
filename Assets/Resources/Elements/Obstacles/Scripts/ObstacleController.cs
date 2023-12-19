@@ -11,6 +11,8 @@ public class ObstacleController: MonoBehaviour
 {
     public static ObstacleController instance = null;
 
+    public GameObject bombPrefab;
+    GameObject bomb;
 
     private void Awake()
     {
@@ -24,9 +26,14 @@ public class ObstacleController: MonoBehaviour
     }
 
     void Start(){
+        bomb = Instantiate(bombPrefab);
     }
 
     public void UpdateBombEnd(){
+        bomb.GetComponent<Bomb>().OnStart();
+    }
 
+    public void OnBombPause(){
+        bomb.GetComponent<Bomb>().OnPause();
     }
 }

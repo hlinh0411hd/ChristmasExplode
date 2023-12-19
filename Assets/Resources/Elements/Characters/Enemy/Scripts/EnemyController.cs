@@ -65,6 +65,10 @@ public class EnemyController : MonoBehaviour
         demon.GetComponent<Demon>().OnStart();
     }
 
+    public void OnDemonPause(){
+        demon.GetComponent<Demon>().OnPause();
+    }
+
     public void OnDestroyEnemy()
     {
         for (int i = 0; i < enemies.Count; i++)

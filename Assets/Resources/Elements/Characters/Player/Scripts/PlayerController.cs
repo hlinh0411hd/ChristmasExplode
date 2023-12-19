@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         playerData.attackTime = playerDataBase.attackTime;
         playerData.skillTime = playerDataBase.skillTime;
         playerData.heightJump = playerDataBase.heightJump;
+        playerData.numSnow = playerDataBase.numShow;
     }
 
     public void InitPlayer()
@@ -58,6 +59,10 @@ public class PlayerController : MonoBehaviour
         crrPlayer?.GetComponent<Player>().OnStart();
     }
 
+    public void OnPause(){
+        crrPlayer?.GetComponent<Player>()?.OnPause();
+    }
+
     public GameObject GetPlayer()
     {
         return crrPlayer;
@@ -68,5 +73,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void AddNumSnow(int n){
+        playerData.numSnow += n;
     }
 }

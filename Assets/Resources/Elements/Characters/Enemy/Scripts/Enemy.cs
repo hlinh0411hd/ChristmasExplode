@@ -16,8 +16,6 @@ public class EnemyState
 
 public class Enemy : StateMachineObject
 {
-
-
     protected Rigidbody2D rb;
     protected AnimationMachine animationMachine;
     protected bool isDead;
