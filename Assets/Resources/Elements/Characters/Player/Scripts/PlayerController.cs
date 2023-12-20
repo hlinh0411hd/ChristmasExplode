@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     GameObject crrPlayer;
 
+    float timeIncreaseSpeed;
+
 
     private void Awake()
     {
@@ -30,6 +32,19 @@ public class PlayerController : MonoBehaviour
     {
     }
 
+    void Update(){
+        UpdateTime();
+    }
+
+    void UpdateTime(){
+        if (timeIncreaseSpeed >= 0){
+            timeIncreaseSpeed -= Time.deltaTime;
+            if (timeIncreaseSpeed < 0){
+                playerData.speed = playerDataBase.speed;
+            }
+        }
+    }
+
     public void SetUp(){
         UpdateData();
         InitPlayer();
@@ -42,6 +57,7 @@ public class PlayerController : MonoBehaviour
         playerData.skillTime = playerDataBase.skillTime;
         playerData.heightJump = playerDataBase.heightJump;
         playerData.numSnow = playerDataBase.numShow;
+        playerData.numActivator = playerDataBase.numActivator;
     }
 
     public void InitPlayer()
@@ -57,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         crrPlayer?.SetActive(true);
         crrPlayer?.GetComponent<Player>().OnStart();
+        timeIncreaseSpeed = 0;
     }
 
     public void OnPause(){
@@ -77,5 +94,16 @@ public class PlayerController : MonoBehaviour
 
     public void AddNumSnow(int n){
         playerData.numSnow += n;
+        if (playerData.numShow > 10){
+            playerData.numShow = 10;
+        }
+    }
+    public void IncreaseSpeed(){
+        playerData.speed += 1;
+        timeIncreaseSpeed = 3;
+    }
+
+    public void IncreaseActivator(){
+        playerData.numActivator += 1;
     }
 }

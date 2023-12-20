@@ -3,17 +3,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Sequence = DG.Tweening.Sequence;
 
-public class DemonState
+public class DemonState: EnemyState
 {
-    public const int IDLE = 0;
-    public const int MOVE = 1;
-    public const int DASH = 2;
-    public const int SKILL = 3;
-    public const int ATTACK = 4;
-    public const int SPAWN = 5;
-    public const int DIE = 6;
-    public const int STEAL = 7;
-    public const int MAKE_LEVEL = 8;
+    public const int SPAWN = 10;
+    public const int STEAL = 11;
+    public const int MAKE_LEVEL = 12;
 }
 public class Demon : Enemy
 {
@@ -191,5 +185,10 @@ public class Demon : Enemy
     {
         // create item, enemy
         animationMachine?.ChangeState(AnimationState.SPELL, 1f);
+    }
+
+    void OnFreeze(){
+        animationMachine?.PauseAnimation();
+        OnPause();
     }
 }

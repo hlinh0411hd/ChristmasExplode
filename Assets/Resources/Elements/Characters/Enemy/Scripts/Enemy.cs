@@ -12,6 +12,7 @@ public class EnemyState
     public const int SKILL = 3;
     public const int ATTACK = 4;
     public const int DIE = 5;
+    public const int FREEZE = 6;
 }
 
 public class Enemy : StateMachineObject

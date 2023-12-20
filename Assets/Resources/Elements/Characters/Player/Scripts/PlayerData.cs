@@ -11,4 +11,5 @@ public class PlayerData : ScriptableObject
     public float attackTime;
     public float heightJump;
     public int numSnow;
+    public int numActivator;
 }

@@ -32,6 +32,14 @@ public class AnimationMachine: MonoBehaviour
         ChangeState(defaultState);
     }
 
+    void StartAnimation(){
+        animator.enabled = true;
+    }
+
+    void PauseAnimation(){
+        animator.enabled = false;
+    }
+
     public void ChangeState(string state, float time = -1f)
     {
         if (timeState > 0)

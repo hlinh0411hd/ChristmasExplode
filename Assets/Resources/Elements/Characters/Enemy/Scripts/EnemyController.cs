@@ -69,6 +69,10 @@ public class EnemyController : MonoBehaviour
         demon.GetComponent<Demon>().OnPause();
     }
 
+    public void FreezeAll(){
+        demon.GetComponent<Demon>().OnFreeze(1);
+    }
+
     public void OnDestroyEnemy()
     {
         for (int i = 0; i < enemies.Count; i++)
