@@ -187,7 +187,7 @@ public class Demon : Enemy
         animationMachine?.ChangeState(AnimationState.SPELL, 1f);
     }
 
-    void OnFreeze(){
+    public void OnFreeze(int time){
         animationMachine?.PauseAnimation();
         OnPause();
     }

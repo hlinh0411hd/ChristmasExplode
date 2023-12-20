@@ -32,11 +32,11 @@ public class AnimationMachine: MonoBehaviour
         ChangeState(defaultState);
     }
 
-    void StartAnimation(){
+    public void StartAnimation(){
         animator.enabled = true;
     }
 
-    void PauseAnimation(){
+    public void PauseAnimation(){
         animator.enabled = false;
     }
 

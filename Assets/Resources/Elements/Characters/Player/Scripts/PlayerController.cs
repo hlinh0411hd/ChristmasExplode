@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         playerData.attackTime = playerDataBase.attackTime;
         playerData.skillTime = playerDataBase.skillTime;
         playerData.heightJump = playerDataBase.heightJump;
-        playerData.numSnow = playerDataBase.numShow;
+        playerData.numSnow = playerDataBase.numSnow;
         playerData.numActivator = playerDataBase.numActivator;
     }
 
@@ -85,17 +85,10 @@ public class PlayerController : MonoBehaviour
         return crrPlayer;
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void AddNumSnow(int n){
         playerData.numSnow += n;
-        if (playerData.numShow > 10){
-            playerData.numShow = 10;
+        if (playerData.numSnow > 10){
+            playerData.numSnow = 10;
         }
     }
     public void IncreaseSpeed(){

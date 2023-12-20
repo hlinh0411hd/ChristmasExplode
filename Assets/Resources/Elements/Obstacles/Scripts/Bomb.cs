@@ -14,6 +14,7 @@ public class BombState
 public class Bomb : StateMachineObject
 {
     public float timeCountDown;
+    bool isDead;
 
     private IEnumerator WaitStart(float waitTime)
     {
